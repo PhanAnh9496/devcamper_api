@@ -9,6 +9,9 @@ const connectDB = require('./config/db');
 dotenv.config({ path: './config/config.env' });
 const PORT = process.env.PORT || 5000;
 
+// parser
+app.use(express.json());
+
 //ConnectDB
 connectDB();
 
