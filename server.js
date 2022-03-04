@@ -1,12 +1,17 @@
-const express = require("express");
-const dotenv = require("dotenv");
+const express = require('express');
+const dotenv = require('dotenv');
 const app = express();
-const bootcampsRouter = require("./routes/bootcamps.router");
+const bootcampsRouter = require('./routes/bootcamps.router');
+const morgan = require('morgan');
 //load env
-dotenv.config({ path: "./config/config.env" });
+dotenv.config({ path: './config/config.env' });
 const PORT = process.env.PORT || 5000;
 
-app.use("/api/v1/bootcamps", bootcampsRouter);
+if (process.env.NODE_ENV === 'development') {
+  app.use(morgan('dev'));
+}
+
+app.use('/api/v1/bootcamps', bootcampsRouter);
 
 app.listen(
   PORT,
