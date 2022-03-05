@@ -3,6 +3,7 @@ const dotenv = require('dotenv');
 const app = express();
 const bootcampsRouter = require('./routes/bootcamps.router');
 const morgan = require('morgan');
+const errorHandler = require('./middleware/error');
 const connectDB = require('./config/db');
 
 //load env
@@ -17,6 +18,8 @@ connectDB();
 
 //Route files
 app.use('/api/v1/bootcamps', bootcampsRouter);
+
+app.use(errorHandler);
 
 if (process.env.NODE_ENV === 'development') {
   app.use(morgan('dev'));
