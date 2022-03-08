@@ -4,10 +4,10 @@ const dotenv = require('dotenv');
 dotenv.config({ path: './config/config.env' });
 const app = express();
 const bootcampsRouter = require('./routes/bootcamps.router');
+const coursesRouter = require('./routes/courses.router');
 const morgan = require('morgan');
 const errorHandler = require('./middleware/error');
 const connectDB = require('./config/db');
-
 
 const PORT = process.env.PORT || 5000;
 
@@ -19,6 +19,7 @@ connectDB();
 
 //Route files
 app.use('/api/v1/bootcamps', bootcampsRouter);
+app.use('/api/v1/courses', coursesRouter);
 
 app.use(errorHandler);
 
