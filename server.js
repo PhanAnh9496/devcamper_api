@@ -7,6 +7,7 @@ dotenv.config({ path: './config/config.env' });
 const app = express();
 const bootcampsRouter = require('./routes/bootcamps.router');
 const coursesRouter = require('./routes/courses.router');
+const authRouter = require('./routes/auth.router');
 const morgan = require('morgan');
 const errorHandler = require('./middleware/error');
 const connectDB = require('./config/db');
@@ -32,6 +33,7 @@ connectDB();
 //Route files
 app.use('/api/v1/bootcamps', bootcampsRouter);
 app.use('/api/v1/courses', coursesRouter);
+app.use('/api/v1/auth', authRouter);
 
 app.use(errorHandler);
 
