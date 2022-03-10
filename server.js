@@ -2,22 +2,26 @@ const express = require('express');
 const dotenv = require('dotenv');
 const path = require('path');
 const fileupload = require('express-fileupload');
-const cookieParser = require('cookie-parser')
+const cookieParser = require('cookie-parser');
 const morgan = require('morgan');
 const errorHandler = require('./middleware/error');
 const connectDB = require('./config/db');
 
-//load env
-dotenv.config({ path: './config/config.env' });
-const app = express();
 const bootcampsRouter = require('./routes/bootcamps.router');
 const coursesRouter = require('./routes/courses.router');
 const authRouter = require('./routes/auth.router');
 
 const PORT = process.env.PORT || 5000;
 
-// parser
+//load env
+dotenv.config({ path: './config/config.env' });
+const app = express();
+
+// body parser
 app.use(express.json());
+
+// cookie parser
+app.use(cookieParser());
 
 if (process.env.NODE_ENV === 'development') {
   app.use(morgan('dev'));
@@ -30,7 +34,6 @@ app.use(fileupload());
 
 //Set static folder
 app.use(express.static(path.join(__dirname, 'public')));
-
 
 //Route files
 app.use('/api/v1/bootcamps', bootcampsRouter);
